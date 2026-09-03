@@ -1119,6 +1119,33 @@ class Component extends DCLogic {
     this.getCities().forEach((c) => { byName[c.name] = c; });
     return this.CITY_GROUPS.map((g) => ({ title: t[g.titleKey], cities: g.names.map((n) => byName[n]) }));
   }
+  _ihfFixCase = (text) => {
+    const m = text.match(/,\s*([A-Za-z]{2})\s*\d{5}/);
+    const state = m ? m[1].toUpperCase() : null;
+    let result = text.toLowerCase().replace(/\b[a-z]/g, (c) => c.toUpperCase());
+    if (state) result = result.replace(/\b[A-Za-z]{2}\b(?=\s*\d{5})/, state);
+    return result;
+  };
+  _ihfFixAllShadowRoots = () => {
+    document.querySelectorAll('*').forEach((el) => {
+      if (!el.shadowRoot) return;
+      el.shadowRoot.querySelectorAll('.ihf-gallery-street-name').forEach((wrap) => {
+        const p = wrap.querySelector('p') || wrap;
+        const fixed = this._ihfFixCase(p.textContent);
+        if (p.textContent !== fixed) p.textContent = fixed;
+      });
+    });
+  };
+  _ihfStartCaseFix = () => {
+    if (this._ihfCaseFixStarted) return;
+    this._ihfCaseFixStarted = true;
+    let ticks = 0;
+    const iv = setInterval(() => {
+      ticks++;
+      this._ihfFixAllShadowRoots();
+      if (ticks > 60) clearInterval(iv);
+    }, 500);
+  };
   featuredListingsRef = (node) => {
     if (!node || node.dataset.ihfMounted) return;
     const mount = () => {
@@ -1129,8 +1156,9 @@ class Component extends DCLogic {
         propertyType: 'SFR',
         status: 'active',
         sort: 'ds',
-        resultsPerPage: 8,
+        resultsPerPage: 4,
       }));
+      this._ihfStartCaseFix();
     };
     mount();
   };
@@ -1146,6 +1174,7 @@ class Component extends DCLogic {
         sort: 'pd',
         resultsPerPage: 15,
       }));
+      this._ihfStartCaseFix();
     };
     mount();
   };
