@@ -1134,6 +1134,11 @@ class Component extends DCLogic {
         const fixed = this._ihfFixCase(p.textContent);
         if (p.textContent !== fixed) p.textContent = fixed;
       });
+      const walker = document.createTreeWalker(el.shadowRoot, NodeFilter.SHOW_TEXT);
+      let node;
+      while ((node = walker.nextNode())) {
+        if (node.nodeValue.includes('Sold Price:')) node.nodeValue = node.nodeValue.replace('Sold Price:', '').trim();
+      }
     });
   };
   _ihfStartCaseFix = () => {
