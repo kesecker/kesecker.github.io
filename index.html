@@ -25,8 +25,16 @@
     })();
   </script>
   <script src="./image-slot.js"></script>
+  <script src="https://kestrel.idxhome.com/ihf-kestrel.js"></script>
+  <script>
+    window.ihfKestrel = window.ihfKestrel || {};
+    ihfKestrel.config = {
+      platform: "custom",
+      activationToken: "84ee0119-74ff-4a71-885e-a3cc7e030850",
+    };
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;family=Lexend:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;family=Lexend:wght@400;500;600&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
     :root {
       --rh-font: 'Montserrat', system-ui, sans-serif;
@@ -287,69 +295,12 @@
 
   <!-- NOTABLE SALES -->
   <div id="idx" style="padding: 96px 64px;">
-    <div style="text-align: center; max-width: 640px; margin: 0 auto 44px;">
-      <span class="vc-eyebrow">{{ t.notableEyebrow }}</span>
-      <h2 ref="{{ revealRefIdx }}" style="font-size: clamp(24px, 4.2vw, 36px); font-weight: 600; margin: 10px 0 12px; letter-spacing: -0.01em; text-transform: uppercase; {{ revealIdx }}">{{ t.notableHeading }}</h2>
-      <p style="font-size: 15px; color: var(--rh-text-secondary); line-height: 1.6; margin: 0;">{{ t.notableParagraph }}</p>
+    <div style="text-align: center; max-width: 640px; margin: 0 auto 64px;">
+      <h2 ref="{{ revealRefIdx }}" style="font-size: clamp(24px, 4.2vw, 36px); font-weight: 600; margin: 0; letter-spacing: -0.01em; text-transform: uppercase; {{ revealIdx }}">{{ t.notableHeading }}</h2>
     </div>
 
-    <div style="position: relative; width: 100%; margin: 0 -64px;">
-      <sc-if value="{{ notableOverflow }}" hint-placeholder-val="{{ false }}">
-        <button onClick="{{ scrollNotableLeft }}" aria-label="Previous" style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); z-index: 5; width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--rh-border); background: #ffffff; padding: 0; cursor: pointer; opacity: 1; transition: background 0.25s ease;" style-hover="background: var(--rh-sidebar);">
-          <span style="position: absolute; top: 50%; left: 50%; width: 20px; height: 20px; margin-top: -10px; margin-left: -6px; border-top: 3px solid #1a1a1a; border-left: 3px solid #1a1a1a; transform: rotate(-45deg);"></span>
-        </button>
-        <button onClick="{{ scrollNotableRight }}" aria-label="Next" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); z-index: 5; width: 56px; height: 56px; border-radius: 50%; border: 1px solid var(--rh-border); background: #ffffff; padding: 0; cursor: pointer; opacity: 1; transition: background 0.25s ease;" style-hover="background: var(--rh-sidebar);">
-          <span style="position: absolute; top: 50%; left: 50%; width: 20px; height: 20px; margin-top: -10px; margin-left: -14px; border-top: 3px solid #1a1a1a; border-right: 3px solid #1a1a1a; transform: rotate(45deg);"></span>
-        </button>
-      </sc-if>
-      <div id="notable-viewport" ref="{{ notableViewportRef }}" style="overflow-x: hidden; overflow-y: visible; width: 100%; padding: 0 64px; box-sizing: border-box;">
-        <div ref="{{ notableTrackRef }}" style="display: flex; gap: 28px; width: 100%; will-change: transform;">
-          <div style="background: var(--rh-surface); border: 1px solid var(--rh-border); flex: 1 0 270px; min-width: 270px;">
-            <image-slot id="notable-sale-1" shape="rect" placeholder="Sale photo" style="width: 100%; height: 220px;"></image-slot>
-            <div style="padding: 20px;">
-              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; min-height: 28px; margin-bottom: 8px;">
-                <span style="font-size: 20px; font-weight: 700; color: var(--rh-text-primary);">$2,450,000</span>
-                <x-import component-from-global-scope="RealtyHub.Badge" hint-size="60px,22px" priority="low" label="{{ t.badgeSold }}"></x-import>
-              </div>
-              <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--rh-text-primary);">14 Harbor Ridge Lane</div>
-              <div style="font-size: 13px; color: var(--rh-text-secondary);">{{ t.notableSale1Specs }}</div>
-            </div>
-          </div>
-          <div style="background: var(--rh-surface); border: 1px solid var(--rh-border); flex: 1 0 270px; min-width: 270px;">
-            <image-slot id="notable-sale-2" shape="rect" placeholder="Sale photo" style="width: 100%; height: 220px;"></image-slot>
-            <div style="padding: 20px;">
-              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; min-height: 28px; margin-bottom: 8px;">
-                <span style="font-size: 20px; font-weight: 700; color: var(--rh-text-primary);">$1,875,000</span>
-                <x-import component-from-global-scope="RealtyHub.Badge" hint-size="60px,22px" priority="low" label="{{ t.badgeSold }}"></x-import>
-              </div>
-              <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--rh-text-primary);">802 Cliffside Court</div>
-              <div style="font-size: 13px; color: var(--rh-text-secondary);">{{ t.notableSale2Specs }}</div>
-            </div>
-          </div>
-          <div style="background: var(--rh-surface); border: 1px solid var(--rh-border); flex: 1 0 270px; min-width: 270px;">
-            <image-slot id="notable-sale-3" shape="rect" placeholder="Sale photo" style="width: 100%; height: 220px;"></image-slot>
-            <div style="padding: 20px;">
-              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; min-height: 28px; margin-bottom: 8px;">
-                <span style="font-size: 20px; font-weight: 700; color: var(--rh-text-primary);">$4,100,000</span>
-                <x-import component-from-global-scope="RealtyHub.Badge" hint-size="60px,22px" priority="low" label="{{ t.badgeSold }}"></x-import>
-              </div>
-              <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--rh-text-primary);">3 Lighthouse Point</div>
-              <div style="font-size: 13px; color: var(--rh-text-secondary);">{{ t.notableSale3Specs }}</div>
-            </div>
-          </div>
-          <div style="background: var(--rh-surface); border: 1px solid var(--rh-border); flex: 1 0 270px; min-width: 270px;">
-            <image-slot id="notable-sale-4" shape="rect" placeholder="Sale photo" style="width: 100%; height: 220px;"></image-slot>
-            <div style="padding: 20px;">
-              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; min-height: 28px; margin-bottom: 8px;">
-                <span style="font-size: 20px; font-weight: 700; color: var(--rh-text-primary);">$975,000</span>
-                <x-import component-from-global-scope="RealtyHub.Badge" hint-size="60px,22px" priority="low" label="{{ t.badgeSold }}"></x-import>
-              </div>
-              <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--rh-text-primary);">27 Meridian Walk</div>
-              <div style="font-size: 13px; color: var(--rh-text-secondary);">{{ t.notableSale4Specs }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div style="width: 100%;">
+      <div id="ihf-notable-sales" ref="{{ notableSalesRef }}" style="width: 100%;"></div>
     </div>
   </div>
 
@@ -1095,7 +1046,7 @@ class Component extends DCLogic {
       listingsEyebrow: 'Featured', listingsHeading: 'Featured Listings', listingsViewAll: 'View all listings →',
       badgeNew: 'New', badgeOpenSat: 'Open Sat', badgeWaterfront: 'Waterfront',
       listing1Specs: '4 bd · 3.5 ba · 3,420 sqft', listing2Specs: '3 bd · 2 ba · 2,190 sqft', listing3Specs: '5 bd · 4 ba · 4,980 sqft', listing4Specs: '3 bd · 2 ba · 1,860 sqft',
-      notableEyebrow: 'Notable Sales', notableHeading: 'Recent Notable Sales',
+      notableEyebrow: 'Notable Sales', notableHeading: 'Notable Sales',
       notableParagraph: 'A selection of standout properties recently closed.',
       notableSale1Specs: '4 bd · 3.5 ba · 3,420 sqft', notableSale2Specs: '3 bd · 2 ba · 2,190 sqft', notableSale3Specs: '5 bd · 4 ba · 4,980 sqft', notableSale4Specs: '3 bd · 2 ba · 1,860 sqft',
       badgeSold: 'Sold',
@@ -1135,7 +1086,7 @@ class Component extends DCLogic {
       listingsEyebrow: 'Destacadas', listingsHeading: 'Propiedades Disponibles', listingsViewAll: 'Ver todas las propiedades →',
       badgeNew: 'Nueva', badgeOpenSat: 'Casa Abierta Sáb', badgeWaterfront: 'Frente al Mar',
       listing1Specs: '4 recámaras · 3.5 baños · 3,420 pies²', listing2Specs: '3 recámaras · 2 baños · 2,190 pies²', listing3Specs: '5 recámaras · 4 baños · 4,980 pies²', listing4Specs: '3 recámaras · 2 baños · 1,860 pies²',
-      notableEyebrow: 'Ventas Destacadas', notableHeading: 'Ventas Notables Recientes',
+      notableEyebrow: 'Ventas Destacadas', notableHeading: 'Ventas Notables',
       notableParagraph: 'Una selección de propiedades destacadas vendidas recientemente.',
       notableSale1Specs: '4 recámaras · 3.5 baños · 3,420 pies²', notableSale2Specs: '3 recámaras · 2 baños · 2,190 pies²', notableSale3Specs: '5 recámaras · 4 baños · 4,980 pies²', notableSale4Specs: '3 recámaras · 2 baños · 1,860 pies²',
       badgeSold: 'Vendida',
@@ -1178,7 +1129,7 @@ class Component extends DCLogic {
   handleHeroSearchKeyDown = (e) => { if (e.key === 'Enter') { e.preventDefault(); this.goToListings(); } };
   goToListings = () => {
     const q = (this.state.heroSearchValue || '').trim();
-    window.location.href = 'listings/' + (q ? '?q=' + encodeURIComponent(q) : '');
+    window.location.href = 'Listings.dc.html' + (q ? '?q=' + encodeURIComponent(q) : '');
   };
 
   setOfficeHover = (which) => {
@@ -1246,28 +1197,20 @@ class Component extends DCLogic {
     this.listingsTrackEl.style.transition = this.carouselTransition;
     this.listingsTrackEl.style.transform = 'translate3d(' + (-this.listingsOffset) + 'px,0,0)';
   };
-  notableTrackEl = null;
-  notableViewportEl = null;
-  notableTrackRef = (el) => { this.notableTrackEl = el; this.checkNotableOverflow(); };
-  notableViewportRef = (el) => { this.notableViewportEl = el; this.checkNotableOverflow(); };
-  notableOffset = 0;
-  notableCardW = 298;
-  checkNotableOverflow = () => {
-    if (!this.notableTrackEl || !this.notableViewportEl) return;
-    const overflow = this.notableTrackEl.scrollWidth > this.notableViewportEl.clientWidth + 1;
-    if (overflow !== this.state.notableOverflow) this.setState({ notableOverflow: overflow });
-    if (!overflow) {
-      this.notableOffset = 0;
-      this.notableTrackEl.style.transition = 'none';
-      this.notableTrackEl.style.transform = 'translate3d(0,0,0)';
-    }
-  };
-  scrollNotable = (dir) => {
-    if (!this.notableTrackEl || !this.notableViewportEl) return;
-    const maxScroll = Math.max(0, this.notableTrackEl.scrollWidth - this.notableViewportEl.clientWidth);
-    this.notableOffset = Math.min(maxScroll, Math.max(0, this.notableOffset + dir * this.notableCardW));
-    this.notableTrackEl.style.transition = this.carouselTransition;
-    this.notableTrackEl.style.transform = 'translate3d(' + (-this.notableOffset) + 'px,0,0)';
+  notableSalesRef = (node) => {
+    if (!node || node.dataset.ihfMounted) return;
+    const mount = () => {
+      if (!window.ihfKestrel || !window.ihfKestrel.render) { setTimeout(mount, 150); return; }
+      node.dataset.ihfMounted = '1';
+      node.appendChild(window.ihfKestrel.render({
+        component: 'featuredListingSearchWidget',
+        propertyType: 'SFR',
+        status: 'sold',
+        sort: 'pd',
+        resultsPerPage: 15,
+      }));
+    };
+    mount();
   };
   marqueeOffset = 0;
   marqueePaused = false;
@@ -1350,7 +1293,6 @@ class Component extends DCLogic {
       const narrow = window.innerWidth <= 1360;
       if (narrow !== this.state.isNarrow) this.setState({ isNarrow: narrow });
       this.checkListingsOverflow();
-      this.checkNotableOverflow();
     };
     this.onResize();
     window.addEventListener('resize', this.onResize);
@@ -1496,11 +1438,7 @@ class Component extends DCLogic {
       listingsOverflow: !!this.state.listingsOverflow,
       scrollListingsLeft: () => this.scrollListings(-1),
       scrollListingsRight: () => this.scrollListings(1),
-      notableTrackRef: this.notableTrackRef,
-      notableViewportRef: this.notableViewportRef,
-      notableOverflow: !!this.state.notableOverflow,
-      scrollNotableLeft: () => this.scrollNotable(-1),
-      scrollNotableRight: () => this.scrollNotable(1),
+      notableSalesRef: this.notableSalesRef,
       scrollMarqueeLeft: () => this.scrollMarquee(-1),
       scrollMarqueeRight: () => this.scrollMarquee(1),
       reviewModalLabel: es ? 'Leer Reseña Completa' : 'Read Full Review',
