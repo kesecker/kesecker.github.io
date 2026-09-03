@@ -233,63 +233,8 @@
       <h2 ref="{{ revealRefListingsHero }}" style="font-size: clamp(24px, 4.2vw, 36px); font-weight: 600; margin: 0; letter-spacing: -0.01em; color: #ffffff; text-transform: uppercase; {{ revealListingsHero }}">{{ t.listingsHeading }}</h2>
       <a href="#idx" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); font-size: 14px; font-weight: 600; color: #ffffff;">{{ t.listingsViewAll }}</a>
     </div>
-    <div style="position: relative; width: 100%;">
-      <sc-if value="{{ listingsOverflow }}" hint-placeholder-val="{{ false }}">
-        <button onClick="{{ scrollListingsLeft }}" aria-label="Previous" style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); z-index: 5; width: 56px; height: 56px; border-radius: 50%; border: none; background: #000000; padding: 0; cursor: pointer; opacity: 1; transition: background 0.25s ease;" style-hover="background: #1a1a1a;">
-          <span style="position: absolute; top: 50%; left: 50%; width: 20px; height: 20px; margin-top: -10px; margin-left: -6px; border-top: 3px solid #ffffff; border-left: 3px solid #ffffff; transform: rotate(-45deg);"></span>
-        </button>
-        <button onClick="{{ scrollListingsRight }}" aria-label="Next" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); z-index: 5; width: 56px; height: 56px; border-radius: 50%; border: none; background: #000000; padding: 0; cursor: pointer; opacity: 1; transition: background 0.25s ease;" style-hover="background: #1a1a1a;">
-          <span style="position: absolute; top: 50%; left: 50%; width: 20px; height: 20px; margin-top: -10px; margin-left: -14px; border-top: 3px solid #ffffff; border-right: 3px solid #ffffff; transform: rotate(45deg);"></span>
-        </button>
-      </sc-if>
-      <div id="listings-viewport" ref="{{ listingsViewportRef }}" style="overflow-x: hidden; overflow-y: visible; width: 100%; padding: 0 64px; box-sizing: border-box;">
-        <div ref="{{ listingsTrackRef }}" style="display: flex; gap: 28px; width: 100%; will-change: transform;">
-          <div style="background: #1a1a1a; flex: 1 0 270px; min-width: 270px;">
-            <image-slot id="listing-1" shape="rect" src="uploads/white-modern-house-curved-patio-archway-c0a4a3b3-aa51b24d14d0464ea15d36e05aa85ac9.jpg" placeholder="Listing photo" style="width: 100%; height: 220px;"></image-slot>
-            <div style="padding: 20px;">
-              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; min-height: 28px; margin-bottom: 8px;">
-                <span style="font-size: 20px; font-weight: 700; color: #ffffff;">$2,450,000</span>
-                <x-import component-from-global-scope="RealtyHub.Badge" hint-size="70px,22px" priority="low" label="{{ t.badgeNew }}"></x-import>
-              </div>
-              <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #ffffff;">14 Harbor Ridge Lane</div>
-              <div style="font-size: 13px; color: rgba(255,255,255,0.65);">{{ t.listing1Specs }}</div>
-            </div>
-          </div>
-          <div style="background: #1a1a1a; flex: 1 0 270px; min-width: 270px;">
-            <image-slot id="listing-2" shape="rect" src="uploads/images.jpg" placeholder="Listing photo" style="width: 100%; height: 220px;"></image-slot>
-            <div style="padding: 20px;">
-              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; min-height: 28px; margin-bottom: 8px;">
-                <span style="font-size: 20px; font-weight: 700; color: #ffffff;">$1,875,000</span>
-                <x-import component-from-global-scope="RealtyHub.Badge" hint-size="90px,22px" priority="medium" label="{{ t.badgeOpenSat }}"></x-import>
-              </div>
-              <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #ffffff;">802 Cliffside Court</div>
-              <div style="font-size: 13px; color: rgba(255,255,255,0.65);">{{ t.listing2Specs }}</div>
-            </div>
-          </div>
-          <div style="background: #1a1a1a; flex: 1 0 270px; min-width: 270px;">
-            <image-slot id="listing-3" shape="rect" src="uploads/images (1).jpg" placeholder="Listing photo" style="width: 100%; height: 220px;"></image-slot>
-            <div style="padding: 20px;">
-              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; min-height: 28px; margin-bottom: 8px;">
-                <span style="font-size: 20px; font-weight: 700; color: #ffffff;">$4,100,000</span>
-                <x-import component-from-global-scope="RealtyHub.Badge" hint-size="90px,22px" priority="low" label="{{ t.badgeWaterfront }}"></x-import>
-              </div>
-              <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #ffffff;">3 Lighthouse Point</div>
-              <div style="font-size: 13px; color: rgba(255,255,255,0.65);">{{ t.listing3Specs }}</div>
-            </div>
-          </div>
-          <div style="background: #1a1a1a; flex: 1 0 270px; min-width: 270px;">
-            <image-slot id="listing-4" shape="rect" src="uploads/images (2).jpg" placeholder="Listing photo" style="width: 100%; height: 220px;"></image-slot>
-            <div style="padding: 20px;">
-              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; min-height: 28px; margin-bottom: 8px;">
-                <span style="font-size: 20px; font-weight: 700; color: #ffffff;">$975,000</span>
-                <x-import component-from-global-scope="RealtyHub.Badge" hint-size="70px,22px" priority="low" label="{{ t.badgeNew }}"></x-import>
-              </div>
-              <div style="font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #ffffff;">27 Meridian Walk</div>
-              <div style="font-size: 13px; color: rgba(255,255,255,0.65);">{{ t.listing4Specs }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div style="width: 100%;">
+      <div id="ihf-featured-listings" ref="{{ featuredListingsRef }}" style="width: 100%;"></div>
     </div>
   </div>
 
@@ -1121,8 +1066,6 @@ class Component extends DCLogic {
   marqueeTrackRef = (el) => { this.marqueeTrackEl = el; };
   marqueeViewportEl = null;
   marqueeViewportRef = (el) => { this.marqueeViewportEl = el; };
-  listingsTrackEl = null;
-  listingsTrackRef = (el) => { this.listingsTrackEl = el; this.checkListingsOverflow(); };
   mapIframeEl = null;
   mapIframeRef = (el) => { this.mapIframeEl = el; };
   handleHeroSearchChange = (e) => this.setState({ heroSearchValue: e.target.value });
@@ -1176,26 +1119,20 @@ class Component extends DCLogic {
     this.getCities().forEach((c) => { byName[c.name] = c; });
     return this.CITY_GROUPS.map((g) => ({ title: t[g.titleKey], cities: g.names.map((n) => byName[n]) }));
   }
-  listingsViewportEl = null;
-  listingsViewportRef = (el) => { this.listingsViewportEl = el; this.checkListingsOverflow(); };
-  listingsOffset = 0;
-  listingsCardW = 298;
-  checkListingsOverflow = () => {
-    if (!this.listingsTrackEl || !this.listingsViewportEl) return;
-    const overflow = this.listingsTrackEl.scrollWidth > this.listingsViewportEl.clientWidth + 1;
-    if (overflow !== this.state.listingsOverflow) this.setState({ listingsOverflow: overflow });
-    if (!overflow) {
-      this.listingsOffset = 0;
-      this.listingsTrackEl.style.transition = 'none';
-      this.listingsTrackEl.style.transform = 'translate3d(0,0,0)';
-    }
-  };
-  scrollListings = (dir) => {
-    if (!this.listingsTrackEl || !this.listingsViewportEl) return;
-    const maxScroll = Math.max(0, this.listingsTrackEl.scrollWidth - this.listingsViewportEl.clientWidth);
-    this.listingsOffset = Math.min(maxScroll, Math.max(0, this.listingsOffset + dir * this.listingsCardW));
-    this.listingsTrackEl.style.transition = this.carouselTransition;
-    this.listingsTrackEl.style.transform = 'translate3d(' + (-this.listingsOffset) + 'px,0,0)';
+  featuredListingsRef = (node) => {
+    if (!node || node.dataset.ihfMounted) return;
+    const mount = () => {
+      if (!window.ihfKestrel || !window.ihfKestrel.render) { setTimeout(mount, 150); return; }
+      node.dataset.ihfMounted = '1';
+      node.appendChild(window.ihfKestrel.render({
+        component: 'featuredListingSearchWidget',
+        propertyType: 'SFR',
+        status: 'active',
+        sort: 'ds',
+        resultsPerPage: 8,
+      }));
+    };
+    mount();
   };
   notableSalesRef = (node) => {
     if (!node || node.dataset.ihfMounted) return;
@@ -1292,7 +1229,6 @@ class Component extends DCLogic {
     this.onResize = () => {
       const narrow = window.innerWidth <= 1360;
       if (narrow !== this.state.isNarrow) this.setState({ isNarrow: narrow });
-      this.checkListingsOverflow();
     };
     this.onResize();
     window.addEventListener('resize', this.onResize);
@@ -1433,11 +1369,7 @@ class Component extends DCLogic {
       topGroups: this.getCityGroups().slice(0, 2),
       bottomGroup: this.getCityGroups()[2],
       hoverAreaLeave: this.hoverAreaLeave,
-      listingsTrackRef: this.listingsTrackRef,
-      listingsViewportRef: this.listingsViewportRef,
-      listingsOverflow: !!this.state.listingsOverflow,
-      scrollListingsLeft: () => this.scrollListings(-1),
-      scrollListingsRight: () => this.scrollListings(1),
+      featuredListingsRef: this.featuredListingsRef,
       notableSalesRef: this.notableSalesRef,
       scrollMarqueeLeft: () => this.scrollMarquee(-1),
       scrollMarqueeRight: () => this.scrollMarquee(1),
