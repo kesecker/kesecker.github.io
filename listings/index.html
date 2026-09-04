@@ -98,7 +98,7 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = { isPhoneOpen: false };
-  _ihfStreetSuffixes = ['RD','ST','AVE','DR','LN','CT','WAY','BLVD','PL','CIR','TER','PKWY','HWY','LOOP','TRL','SQ'];
+  _ihfStreetSuffixes = { RD:'Road', ST:'Street', AVE:'Avenue', DR:'Drive', LN:'Lane', CT:'Court', WAY:'Way', BLVD:'Boulevard', PL:'Place', CIR:'Circle', TER:'Terrace', PKWY:'Parkway', HWY:'Highway', LOOP:'Loop', TRL:'Trail', SQ:'Square' };
   _ihfFixTextInRoot = (root) => {
     const cityStateZipRe = /^([A-Za-z .'-]+),\s*([A-Z]{2})\s*(\d{5})$/;
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
@@ -117,8 +117,9 @@ class Component extends DCLogic {
         continue;
       }
       let changed = false;
-      const fixedText = text.replace(/\b([A-Z]{2,6})\b/g, (word) => {
-        if (this._ihfStreetSuffixes.indexOf(word) !== -1) { changed = true; return word.charAt(0) + word.slice(1).toLowerCase(); }
+      const fixedText = text.replace(/\b([A-Za-z]{2,6})\b\.?/g, (word, base) => {
+        const full = this._ihfStreetSuffixes[base.toUpperCase()];
+        if (full) { changed = true; return full; }
         return word;
       });
       if (changed) node.nodeValue = fixedText;
