@@ -1122,7 +1122,7 @@ class Component extends DCLogic {
     return this.CITY_GROUPS.map((g) => ({ title: t[g.titleKey], cities: g.names.map((n) => byName[n]) }));
   }
   _ihfStreetSuffixes = ['RD','ST','AVE','DR','LN','CT','WAY','BLVD','PL','CIR','TER','PKWY','HWY','LOOP','TRL','SQ'];
-  _ihfFixTextInRoot = (root) => {
+  _ihfFixTextInRoot = (root, allowDark) => {
     const cityStateZipRe = /^([A-Za-z .'-]+),\s*([A-Z]{2})\s*(\d{5})$/;
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
     let node;
@@ -1150,20 +1150,19 @@ class Component extends DCLogic {
       const style = document.createElement('style');
       style.setAttribute('data-ihf-font-fix', '1');
       style.textContent = ":host, * { --rh-font: 'Inter', system-ui, sans-serif !important; font-family: 'Inter', system-ui, sans-serif !important; }"
-        + ".ihf-listing-result-cell, .ihf-listing-result-cell * { background: transparent !important; background-color: transparent !important; box-shadow: none !important; color: #ffffff !important; }"
-        + ".ihf-listing-result-status, .active-status-tag .ihf-listing-result-status { background: #000000 !important; background-color: #000000 !important; }"
-        + ".ihf-listing-result-badge-open-house, .ihf-listing-result-badge-virtual-tour { background: #ffffff !important; background-color: #ffffff !important; }"
-        + ".ihf-listing-result-badge-open-house *, .ihf-listing-result-badge-virtual-tour * { color: #000000 !important; }"
-        + ".ihf-listing-result-status, .active-status-tag .ihf-listing-result-status { background: #000000 !important; }"
-        + ".ihf-listing-result-badge-open-house, .ihf-listing-result-badge-virtual-tour { background: #ffffff !important; }"
-        + ".ihf-listing-result-badge-open-house *, .ihf-listing-result-badge-virtual-tour * { color: #000000 !important; }";
+        + (allowDark ? (
+          ".ihf-listing-result-cell, .ihf-listing-result-cell * { background: transparent !important; background-color: transparent !important; box-shadow: none !important; color: #ffffff !important; }"
+          + ".ihf-listing-result-status, .active-status-tag .ihf-listing-result-status { background: #000000 !important; background-color: #000000 !important; }"
+          + ".ihf-listing-result-badge-open-house, .ihf-listing-result-badge-virtual-tour { background: #ffffff !important; background-color: #ffffff !important; }"
+          + ".ihf-listing-result-badge-open-house *, .ihf-listing-result-badge-virtual-tour * { color: #000000 !important; }"
+        ) : '');
       root.appendChild(style);
     }
-    root.querySelectorAll('*').forEach((el) => { if (el.shadowRoot) this._ihfFixTextInRoot(el.shadowRoot); });
+    root.querySelectorAll('*').forEach((el) => { if (el.shadowRoot) this._ihfFixTextInRoot(el.shadowRoot, allowDark); });
   };
   _ihfFixAllShadowRoots = () => {
     document.querySelectorAll('*').forEach((el) => {
-      if (el.shadowRoot) this._ihfFixTextInRoot(el.shadowRoot);
+      if (el.shadowRoot) this._ihfFixTextInRoot(el.shadowRoot, !!el.closest('[data-ihf-dark-cards]'));
     });
   };
   _ihfStartCaseFix = () => {
@@ -1173,6 +1172,7 @@ class Component extends DCLogic {
   };
   featuredListingsRef = (node) => {
     if (!node || node.dataset.ihfMounted) return;
+    node.setAttribute('data-ihf-dark-cards', '1');
     const mount = () => {
       if (!window.ihfKestrel || !window.ihfKestrel.render) { setTimeout(mount, 150); return; }
       node.dataset.ihfMounted = '1';
