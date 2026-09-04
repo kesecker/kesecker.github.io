@@ -1121,37 +1121,37 @@ class Component extends DCLogic {
     this.getCities().forEach((c) => { byName[c.name] = c; });
     return this.CITY_GROUPS.map((g) => ({ title: t[g.titleKey], cities: g.names.map((n) => byName[n]) }));
   }
-  _ihfFixCase = (text) => {
-    const m = text.match(/,\s*([A-Za-z]{2})\s*\d{5}/);
-    const state = m ? m[1].toUpperCase() : null;
-    let result = text.toLowerCase().replace(/\b[a-z]/g, (c) => c.toUpperCase());
-    if (state) result = result.replace(/\b[A-Za-z]{2}\b(?=\s*\d{5})/, state);
-    return result;
-  };
+  _ihfStreetSuffixes = ['RD','ST','AVE','DR','LN','CT','WAY','BLVD','PL','CIR','TER','PKWY','HWY','LOOP','TRL','SQ'];
   _ihfFixAllShadowRoots = () => {
+    const cityStateZipRe = /^([A-Za-z .'-]+),\s*([A-Z]{2})\s*(\d{5})$/;
     document.querySelectorAll('*').forEach((el) => {
       if (!el.shadowRoot) return;
-      el.shadowRoot.querySelectorAll('.ihf-gallery-street-name').forEach((wrap) => {
-        const p = wrap.querySelector('p') || wrap;
-        const fixed = this._ihfFixCase(p.textContent);
-        if (p.textContent !== fixed) p.textContent = fixed;
-      });
       const walker = document.createTreeWalker(el.shadowRoot, NodeFilter.SHOW_TEXT);
       let node;
       while ((node = walker.nextNode())) {
-        if (node.nodeValue.includes('Sold Price:')) node.nodeValue = node.nodeValue.replace('Sold Price:', '').trim();
+        const text = node.nodeValue;
+        if (!text || !/[A-Za-z]/.test(text)) continue;
+        if (text.includes('Sold Price:')) { node.nodeValue = text.replace('Sold Price:', '').trim(); continue; }
+        const trimmed = text.trim();
+        const cz = trimmed.match(cityStateZipRe);
+        if (cz && trimmed === trimmed.toUpperCase()) {
+          const fixedCity = cz[1].toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+          node.nodeValue = text.replace(trimmed, fixedCity + ', ' + cz[2] + ' ' + cz[3]);
+          continue;
+        }
+        let changed = false;
+        const fixedText = text.replace(/\b([A-Z]{2,6})\b/g, (word) => {
+          if (this._ihfStreetSuffixes.indexOf(word) !== -1) { changed = true; return word.charAt(0) + word.slice(1).toLowerCase(); }
+          return word;
+        });
+        if (changed) node.nodeValue = fixedText;
       }
     });
   };
   _ihfStartCaseFix = () => {
     if (this._ihfCaseFixStarted) return;
     this._ihfCaseFixStarted = true;
-    let ticks = 0;
-    const iv = setInterval(() => {
-      ticks++;
-      this._ihfFixAllShadowRoots();
-      if (ticks > 60) clearInterval(iv);
-    }, 500);
+    setInterval(() => this._ihfFixAllShadowRoots(), 500);
   };
   featuredListingsRef = (node) => {
     if (!node || node.dataset.ihfMounted) return;

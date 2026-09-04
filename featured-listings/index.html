@@ -11,19 +11,8 @@
   <link rel="icon" type="image/png" href="assets/favicon-dark.png" media="(prefers-color-scheme: dark)">
   <link rel="icon" type="image/png" href="assets/favicon-light.png" media="(prefers-color-scheme: light)">
   <link rel="icon" type="image/png" href="assets/favicon-light.png">
-  <title>{listingAddress}</title>
-  <link rel="canonical" href="{listingPageUrl}">
-  <meta property="og:url" content="{listingPageUrl}">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="{listingAddress}">
-  <meta property="og:description" content="Photos and Property Details for {listingAddress}. Get complete property information, maps, street view, schools, walk score and more.">
-  <meta property="og:image" content="{listingPhotoUrl}">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{listingAddress}">
-  <meta name="twitter:description" content="Photos and Property Details for {listingAddress}. Get complete property information, maps, street view, schools, walk score and more.">
-  <meta name="twitter:image" content="{listingPhotoUrl}">
-  <meta name="description" content="Photos and Property Details for {listingAddress}. Get complete property information, maps, street view, schools, walk score and more.">
-  <meta name="keywords" content="{listingAddress}, {listingCity} Real Estate, {listingCity} Property for Sale">
+  <title>Featured Listings</title>
+  <meta name="description" content="">
   <script src="https://kestrel.idxhome.com/ihf-kestrel.js"></script>
   <script>
     window.ihfKestrel = window.ihfKestrel || {};
@@ -80,7 +69,7 @@
   </div>
 
   <div style="flex: 1; overflow-y: auto;">
-    <div id="ihf-listing-detail" ref="{{ ihfListingDetailRef }}" style="width: 100%; min-height: 100%; padding: 24px 36px; box-sizing: border-box;"></div>
+    <div id="ihf-featured-listings-page" ref="{{ ihfFeaturedRef }}" style="width: 100%; min-height: 100%; padding: 24px 36px; box-sizing: border-box;"></div>
   </div>
 
   <sc-if value="{{ isPhoneOpen }}" hint-placeholder-val="{{ false }}">
@@ -138,7 +127,7 @@ class Component extends DCLogic {
     this._ihfCaseFixStarted = true;
     setInterval(() => this._ihfFixAllShadowRoots(), 500);
   };
-  ihfListingDetailRef = (node) => {
+  ihfFeaturedRef = (node) => {
     if (!node || node.dataset.ihfMounted) return;
     const mount = () => {
       if (!window.ihfKestrel || !window.ihfKestrel.render) { setTimeout(mount, 150); return; }
@@ -153,7 +142,7 @@ class Component extends DCLogic {
   onPhoneClose = () => this.setState({ isPhoneOpen: false });
   renderVals() {
     return {
-      ihfListingDetailRef: this.ihfListingDetailRef,
+      ihfFeaturedRef: this.ihfFeaturedRef,
       openContactModal: this.openContactModal,
       isPhoneOpen: this.state.isPhoneOpen, togglePhonePopup: this.togglePhonePopup, onPhoneClose: this.onPhoneClose,
       phonePopoverStyle: this.state.isPhoneOpen ? 'opacity:1;visibility:visible;transform:translateY(0);transition:opacity 0.3s ease,transform 0.3s ease;' : 'opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity 0.3s ease,transform 0.3s ease;',
