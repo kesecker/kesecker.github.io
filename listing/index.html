@@ -129,6 +129,12 @@ class Component extends DCLogic {
       });
       if (changed) node.nodeValue = fixedText;
     }
+    if (!root.querySelector('style[data-ihf-font-fix]')) {
+      const style = document.createElement('style');
+      style.setAttribute('data-ihf-font-fix', '1');
+      style.textContent = ":host, * { --rh-font: 'Inter', system-ui, sans-serif !important; font-family: 'Inter', system-ui, sans-serif !important; }";
+      root.appendChild(style);
+    }
     root.querySelectorAll('*').forEach((el) => { if (el.shadowRoot) this._ihfFixTextInRoot(el.shadowRoot); });
   };
   _ihfFixAllShadowRoots = () => {
