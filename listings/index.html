@@ -54,7 +54,7 @@
     <a href="../" style="display: flex; align-items: center; flex-shrink: 0;">
       <img src="uploads/JKR-key-white.png" alt="Jackson Kesecker Realtor" style="height: 34px; width: auto;">
     </a>
-    <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 26px); flex: 1; padding-left: clamp(16px, 3vw, 40px);">
+    <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 26px); flex: 1; padding-left: clamp(8px, 2vw, 28px);">
       <span style="font-size: 14px; font-weight: 500; color: #ffffff;">Search</span>
       <span style="font-size: 30px; line-height: 1; display: flex; align-items: center; color: #ffffff;">•</span>
       <a href="../#idx" style="font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75);" style-hover="color: #ffffff;">Notable Sales</a>
@@ -107,6 +107,8 @@ class Component extends DCLogic {
       const text = node.nodeValue;
       if (!text || !/[A-Za-z]/.test(text)) continue;
       if (text.includes('Sold Price:')) { node.nodeValue = text.replace('Sold Price:', '').trim(); continue; }
+      const filterCountMatch = text.match(/^(Status|Price|Beds|Baths|Property Type|More)\s*\(\d+\)$/);
+      if (filterCountMatch) { node.nodeValue = filterCountMatch[1]; continue; }
       const trimmed = text.trim();
       const cz = trimmed.match(cityStateZipRe);
       if (cz && trimmed === trimmed.toUpperCase()) {

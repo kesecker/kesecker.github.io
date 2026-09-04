@@ -1130,6 +1130,8 @@ class Component extends DCLogic {
       const text = node.nodeValue;
       if (!text || !/[A-Za-z]/.test(text)) continue;
       if (text.includes('Sold Price:')) { node.nodeValue = text.replace('Sold Price:', '').trim(); continue; }
+      const filterCountMatch = text.match(/^(Status|Price|Beds|Baths|Property Type|More)\s*\(\d+\)$/);
+      if (filterCountMatch) { node.nodeValue = filterCountMatch[1]; continue; }
       const trimmed = text.trim();
       const cz = trimmed.match(cityStateZipRe);
       if (cz && trimmed === trimmed.toUpperCase()) {
