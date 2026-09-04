@@ -134,7 +134,13 @@ class Component extends DCLogic {
     if (!root.querySelector('style[data-ihf-font-fix]')) {
       const style = document.createElement('style');
       style.setAttribute('data-ihf-font-fix', '1');
-      style.textContent = ":host, * { --rh-font: 'Inter', system-ui, sans-serif !important; font-family: 'Inter', system-ui, sans-serif !important; }";
+      style.textContent = ":host, * { --rh-font: 'Inter', system-ui, sans-serif !important; font-family: 'Inter', system-ui, sans-serif !important; }"
+        + ".ui-typography-h3 { text-align: center !important; font-size: 22px !important; }"
+        + ".ui-typography-body1 { text-align: center !important; font-size: 14px !important; }"
+        + ".ui-outlined-input { border: none !important; border-bottom: 1px solid #cccccc !important; border-radius: 0 !important; box-shadow: none !important; padding-left: 4px !important; }"
+        + ".ui-outlined-input-input { font-size: 14px !important; padding: 8px 4px !important; }"
+        + ".ui-outlined-input fieldset { border: none !important; }"
+        + ".ihf-email-field, .ui-form-control { max-width: 320px !important; margin-left: auto !important; margin-right: auto !important; }";
       root.appendChild(style);
     }
     root.querySelectorAll('*').forEach((el) => { if (el.shadowRoot) this._ihfFixTextInRoot(el.shadowRoot); });
