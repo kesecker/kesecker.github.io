@@ -96,30 +96,33 @@
 class Component extends DCLogic {
   state = { isPhoneOpen: false };
   _ihfStreetSuffixes = ['RD','ST','AVE','DR','LN','CT','WAY','BLVD','PL','CIR','TER','PKWY','HWY','LOOP','TRL','SQ'];
-  _ihfFixAllShadowRoots = () => {
+  _ihfFixTextInRoot = (root) => {
     const cityStateZipRe = /^([A-Za-z .'-]+),\s*([A-Z]{2})\s*(\d{5})$/;
-    document.querySelectorAll('*').forEach((el) => {
-      if (!el.shadowRoot) return;
-      const walker = document.createTreeWalker(el.shadowRoot, NodeFilter.SHOW_TEXT);
-      let node;
-      while ((node = walker.nextNode())) {
-        const text = node.nodeValue;
-        if (!text || !/[A-Za-z]/.test(text)) continue;
-        if (text.includes('Sold Price:')) { node.nodeValue = text.replace('Sold Price:', '').trim(); continue; }
-        const trimmed = text.trim();
-        const cz = trimmed.match(cityStateZipRe);
-        if (cz && trimmed === trimmed.toUpperCase()) {
-          const fixedCity = cz[1].toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-          node.nodeValue = text.replace(trimmed, fixedCity + ', ' + cz[2] + ' ' + cz[3]);
-          continue;
-        }
-        let changed = false;
-        const fixedText = text.replace(/\b([A-Z]{2,6})\b/g, (word) => {
-          if (this._ihfStreetSuffixes.indexOf(word) !== -1) { changed = true; return word.charAt(0) + word.slice(1).toLowerCase(); }
-          return word;
-        });
-        if (changed) node.nodeValue = fixedText;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      const text = node.nodeValue;
+      if (!text || !/[A-Za-z]/.test(text)) continue;
+      if (text.includes('Sold Price:')) { node.nodeValue = text.replace('Sold Price:', '').trim(); continue; }
+      const trimmed = text.trim();
+      const cz = trimmed.match(cityStateZipRe);
+      if (cz && trimmed === trimmed.toUpperCase()) {
+        const fixedCity = cz[1].toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+        node.nodeValue = text.replace(trimmed, fixedCity + ', ' + cz[2] + ' ' + cz[3]);
+        continue;
       }
+      let changed = false;
+      const fixedText = text.replace(/\b([A-Z]{2,6})\b/g, (word) => {
+        if (this._ihfStreetSuffixes.indexOf(word) !== -1) { changed = true; return word.charAt(0) + word.slice(1).toLowerCase(); }
+        return word;
+      });
+      if (changed) node.nodeValue = fixedText;
+    }
+    root.querySelectorAll('*').forEach((el) => { if (el.shadowRoot) this._ihfFixTextInRoot(el.shadowRoot); });
+  };
+  _ihfFixAllShadowRoots = () => {
+    document.querySelectorAll('*').forEach((el) => {
+      if (el.shadowRoot) this._ihfFixTextInRoot(el.shadowRoot);
     });
   };
   _ihfStartCaseFix = () => {
