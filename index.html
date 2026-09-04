@@ -1150,9 +1150,8 @@ class Component extends DCLogic {
       const style = document.createElement('style');
       style.setAttribute('data-ihf-font-fix', '1');
       style.textContent = ":host, * { --rh-font: 'Inter', system-ui, sans-serif !important; font-family: 'Inter', system-ui, sans-serif !important; }"
-        + "[class*=\"result-cell\" i] { background: transparent !important; box-shadow: none !important; }"
-        + "[class*=\"result-cell\" i] .ihf-listing-result-img-container { background: transparent !important; }"
-        + "[class*=\"result-cell\" i] * { color: #ffffff !important; }"
+        + "[class*=\"result-cell\" i], [class*=\"result-card\" i], [class*=\"gallery-card\" i], [class*=\"listing-card\" i] { background: transparent !important; box-shadow: none !important; }"
+        + "[class*=\"result-cell\" i] *, [class*=\"result-card\" i] *, [class*=\"gallery-card\" i] *, [class*=\"listing-card\" i] * { background: transparent !important; color: #ffffff !important; }"
         + ".ihf-listing-result-status, .active-status-tag .ihf-listing-result-status { background: #000000 !important; }"
         + ".ihf-listing-result-badge-open-house, .ihf-listing-result-badge-virtual-tour { background: #ffffff !important; }"
         + ".ihf-listing-result-badge-open-house *, .ihf-listing-result-badge-virtual-tour * { color: #000000 !important; }";
