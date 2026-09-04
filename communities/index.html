@@ -11,16 +11,6 @@
   <link rel="icon" type="image/png" href="assets/favicon-dark.png" media="(prefers-color-scheme: dark)">
   <link rel="icon" type="image/png" href="assets/favicon-light.png" media="(prefers-color-scheme: light)">
   <link rel="icon" type="image/png" href="assets/favicon-light.png">
-  <title>Featured Listings</title>
-  <meta name="description" content="">
-  <script src="https://kestrel.idxhome.com/ihf-kestrel.js"></script>
-  <script>
-    window.ihfKestrel = window.ihfKestrel || {};
-    ihfKestrel.config = {
-      platform: "custom",
-      activationToken: "84ee0119-74ff-4a71-885e-a3cc7e030850",
-    };
-  </script>
   <link rel="stylesheet" href="_ds/realty-hub-design-system-dc2b1855-61ad-4be7-8677-8c19514f7cae/styles.css">
   <script>
     (function loadDsBundle() {
@@ -43,22 +33,25 @@
       --rh-accent-light: #ededed;
     }
     html, body { margin: 0; overflow-x: hidden; background: var(--rh-bg); letter-spacing: 0.015em; }
-    @keyframes modal-fade-in { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes modal-fade-out { from { opacity: 1; } to { opacity: 0; } }
     a { color: var(--rh-accent); text-decoration: none; }
     a:hover { color: var(--rh-accent-hover); }
+    .vc-eyebrow { font-family: var(--rh-font); font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rh-accent); }
+    @media (max-width: 760px) {
+      #communities-list { flex-wrap: wrap !important; }
+      #communities-map-col { margin-left: 0 !important; }
+    }
   </style>
 </helmet>
 
 <div style="font-family: var(--rh-font); color: var(--rh-text-primary); background: var(--rh-bg); width: 100%; min-height: 100vh; display: flex; flex-direction: column;">
   <div style="display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 clamp(20px, 4vw, 48px) 0 clamp(8px, 1.5vw, 18px); height: 92px; background: #000000; flex-wrap: wrap; flex-shrink: 0;">
     <a href="https://keseckerproperties.com/" target="_self" style="display: flex; align-items: center; flex-shrink: 0;">
-      <img src="uploads/JKR-key-white.png" alt="Jackson Kesecker Realtor" style="height: 34px; width: auto;">
+      <img src="assets/key-landing-logo.png" alt="Jackson Kesecker Realtor" style="height: 34px; width: auto;">
     </a>
     <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 26px); flex: 1; padding-left: clamp(8px, 2vw, 28px);">
       <a href="../listings" style="font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75);" style-hover="color: #ffffff;">Search</a>
       <span style="font-size: 30px; line-height: 1; display: flex; align-items: center; color: #ffffff;">•</span>
-      <a href="../communities" style="font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75);" style-hover="color: #ffffff;">Communities</a>
+      <span style="font-size: 14px; font-weight: 500; color: #ffffff;">Communities</span>
       <span style="font-size: 30px; line-height: 1; display: flex; align-items: center; color: #ffffff;">•</span>
       <a href="../about" style="font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75);" style-hover="color: #ffffff;">About</a>
     </div>
@@ -67,7 +60,47 @@
   </div>
 
   <div style="height: calc(100vh - 92px); overflow-y: auto;">
-    <div id="ihf-featured-listings-page" ref="{{ ihfFeaturedRef }}" style="width: 100%; min-height: 100%; padding: 24px 36px; box-sizing: border-box;"></div>
+    <div style="max-width: 1160px; margin: 0 auto; padding: 72px 36px 96px;">
+      <div style="text-align: center; margin-bottom: 56px;">
+        <span class="vc-eyebrow">Where We Serve</span>
+        <h1 style="font-size: clamp(26px, 4.4vw, 40px); font-weight: 600; margin: 10px 0 0; letter-spacing: -0.01em; text-transform: uppercase;">Areas Served</h1>
+      </div>
+      <div id="communities-list" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; align-items: flex-start;">
+        <div style="flex: 1 1 220px; min-width: 200px; max-width: 260px; display: flex; flex-direction: column; gap: 44px; justify-content: flex-start; align-items: center; padding: 0 24px; box-sizing: border-box;">
+          <div style="display: flex; gap: 40px; justify-content: center; width: 100%; flex-wrap: nowrap;">
+            <sc-for list="{{ topGroups }}" as="group" hint-placeholder-count="2">
+              <div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                <span style="font-size: 11px; white-space: nowrap; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rh-text-secondary);">{{ group.title }}</span>
+                <sc-for list="{{ group.cities }}" as="city" hint-placeholder-count="5">
+                  <div style="cursor: pointer;" onClick="{{ city.focusHandler }}" onMouseEnter="{{ city.hoverEnter }}" onMouseLeave="{{ hoverAreaLeave }}">
+                    <span style="position: relative; display: inline-block; font-size: 16px; font-weight: 500; color: var(--rh-text-primary); transition: color 0.2s ease;" style-hover="color: var(--rh-accent);">
+                      {{ city.name }}
+                      <span style="position: absolute; left: 0; bottom: -4px; height: 2px; background: var(--rh-accent); width: {{ city.underlineWidth }}; transition: width 0.35s ease;"></span>
+                    </span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; width: 100%;">
+            <span style="font-size: 11px; white-space: nowrap; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rh-text-secondary);">{{ bottomGroup.title }}</span>
+            <sc-for list="{{ bottomGroup.cities }}" as="city" hint-placeholder-count="3">
+              <div style="cursor: pointer;" onClick="{{ city.focusHandler }}" onMouseEnter="{{ city.hoverEnter }}" onMouseLeave="{{ hoverAreaLeave }}">
+                <span style="position: relative; display: inline-block; font-size: 16px; font-weight: 500; color: var(--rh-text-primary); transition: color 0.2s ease;" style-hover="color: var(--rh-accent);">
+                  {{ city.name }}
+                  <span style="position: absolute; left: 0; bottom: -4px; height: 2px; background: var(--rh-accent); width: {{ city.underlineWidth }}; transition: width 0.35s ease;"></span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div id="communities-map-col" style="position: relative; margin-left: 60px;">
+          <div style="flex: none; width: 500px; max-width: 100%; height: 396px;">
+            <iframe ref="{{ mapIframeRef }}" src="Neighborhoods Map.html" title="Monterey County service area map" style="width: 100%; height: 100%; border: none; display: block;"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div style="position: relative; width: 100%; height: 620px; overflow: hidden; background-image: url('uploads/Pinnacles.png'); background-size: cover; background-position: center; background-attachment: fixed;">
@@ -114,100 +147,67 @@
 
   <dc-import name="AccessibilityWidget" hint-size="56px,56px"></dc-import>
 </div>
-
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { isPhoneOpen: false };
-  _ihfStreetSuffixes = { RD:'Road', ST:'Street', AVE:'Avenue', DR:'Drive', LN:'Lane', CT:'Court', WAY:'Way', BLVD:'Boulevard', PL:'Place', CIR:'Circle', TER:'Terrace', PKWY:'Parkway', HWY:'Highway', LOOP:'Loop', TRL:'Trail', SQ:'Square' };
-  _ihfFixTextInRoot = (root) => {
-    const cityStateZipRe = /^([A-Za-z .'-]+),\s*([A-Z]{2})\s*(\d{5})$/;
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-    let node;
-    while ((node = walker.nextNode())) {
-      const text = node.nodeValue;
-      if (!text || !/[A-Za-z]/.test(text)) continue;
-      if (text.includes('Sold Price:')) { node.nodeValue = text.replace('Sold Price:', '').trim(); continue; }
-      const filterCountMatch = text.match(/^(Status|Price|Beds|Baths|Property Type|More)\s*\(\d+\)$/);
-      if (filterCountMatch) { node.nodeValue = filterCountMatch[1]; continue; }
-      const trimmed = text.trim();
-      const cz = trimmed.match(cityStateZipRe);
-      if (cz && trimmed === trimmed.toUpperCase()) {
-        const fixedCity = cz[1].toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-        node.nodeValue = text.replace(trimmed, fixedCity + ', ' + cz[2] + ' ' + cz[3]);
-        continue;
-      }
-      let changed = false;
-      const fixedText = text.replace(/\b([A-Za-z]{2,6})\b\.?/g, (word, base) => {
-        const full = this._ihfStreetSuffixes[base.toUpperCase()];
-        if (full) { changed = true; return full; }
-        return word;
-      });
-      if (changed) node.nodeValue = fixedText;
-    }
-    if (!root.querySelector('style[data-ihf-font-fix]')) {
-      const style = document.createElement('style');
-      style.setAttribute('data-ihf-font-fix', '1');
-      style.textContent = ":host, * { --rh-font: 'Inter', system-ui, sans-serif !important; font-family: 'Inter', system-ui, sans-serif !important; }"
-        + ".ui-typography-h3 { text-align: center !important; font-size: 22px !important; }"
-        + ".ui-typography-body1 { text-align: center !important; font-size: 14px !important; }"
-        + ".ui-outlined-input { border: none !important; border-bottom: 1px solid #cccccc !important; border-radius: 0 !important; box-shadow: none !important; padding-left: 4px !important; }"
-        + ".ui-outlined-input-input { font-size: 14px !important; padding: 8px 4px !important; }"
-        + ".ui-outlined-input fieldset { border: none !important; }"
-        + ".ihf-email-field, .ui-form-control { max-width: 320px !important; margin-left: auto !important; margin-right: auto !important; }"
-        + "[role=\"menu\"], .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded { border-radius: 10px !important; border: 1px solid #ececec !important; box-shadow: 0 8px 24px rgba(0,0,0,0.10) !important; }"
-        + ".MuiMenuItem-root:hover { background: #f5f5f5 !important; } .MuiMenuItem-root.Mui-selected { background: #f0f0f0 !important; }"
-        + ".MuiButton-containedPrimary { background-color: #000000 !important; border-radius: 8px !important; box-shadow: none !important; } .MuiButton-containedPrimary:hover { background-color: #1a1a1a !important; }"
-        + ".MuiSlider-root { color: #000000 !important; } .MuiSlider-thumb { border: 2px solid #ffffff !important; box-shadow: 0 1px 4px rgba(0,0,0,0.35) !important; } .MuiSlider-rail { opacity: 0.25 !important; } .MuiSlider-valueLabel { background: #000000 !important; }";
-      root.appendChild(style);
-    }
-    root.querySelectorAll('*').forEach((el) => { if (el.shadowRoot) this._ihfFixTextInRoot(el.shadowRoot); });
+  state = { isPhoneOpen: false, hoveredCity: null };
+  mapIframeEl = null;
+  mapIframeRef = (el) => { this.mapIframeEl = el; };
+  CITY_NAMES = ['Salinas', 'Gonzales', 'Soledad', 'Greenfield', 'King City', 'Marina', 'Seaside', 'Monterey', 'Pacific Grove', 'Pebble Beach', 'Carmel-by-the-sea', 'Carmel Valley', 'Big Sur', 'Spreckels', 'Del Rey Oaks'];
+  CITY_GROUPS = [
+    { title: 'Salinas Valley', names: ['Salinas', 'Spreckels', 'Gonzales', 'Soledad', 'Greenfield', 'King City'] },
+    { title: 'Monterey Peninsula', names: ['Marina', 'Seaside', 'Del Rey Oaks', 'Monterey', 'Pacific Grove', 'Pebble Beach'] },
+    { title: 'Coastal & Inland', names: ['Carmel-by-the-sea', 'Carmel Valley', 'Big Sur'] },
+  ];
+  focusMapArea = (n) => {
+    if (this.mapIframeEl && this.mapIframeEl.contentWindow) this.mapIframeEl.contentWindow.postMessage({ type: 'focus', n }, '*');
   };
-  _ihfFixAllShadowRoots = () => {
-    document.querySelectorAll('*').forEach((el) => {
-      if (el.shadowRoot) this._ihfFixTextInRoot(el.shadowRoot);
+  hoverMapArea = (n) => {
+    this.setState({ hoveredCity: n });
+    if (this.mapIframeEl && this.mapIframeEl.contentWindow) this.mapIframeEl.contentWindow.postMessage({ type: 'hover', n }, '*');
+  };
+  getFocusAreaHandler(n) {
+    this._focusHandlers = this._focusHandlers || {};
+    if (!this._focusHandlers[n]) this._focusHandlers[n] = () => this.focusMapArea(n);
+    return this._focusHandlers[n];
+  }
+  getHoverAreaHandler(n) {
+    this._hoverHandlers = this._hoverHandlers || {};
+    if (!this._hoverHandlers[n]) this._hoverHandlers[n] = () => this.hoverMapArea(n);
+    return this._hoverHandlers[n];
+  }
+  hoverAreaLeave = () => this.hoverMapArea(null);
+  getCities() {
+    return this.CITY_NAMES.map((name, i) => {
+      const n = i + 1;
+      return {
+        n, name,
+        focusHandler: this.getFocusAreaHandler(n),
+        hoverEnter: this.getHoverAreaHandler(n),
+        underlineWidth: this.state.hoveredCity === n ? '100%' : '0%',
+      };
     });
-  };
-  _ihfStartCaseFix = () => {
-    if (this._ihfCaseFixStarted) return;
-    this._ihfCaseFixStarted = true;
-    if (!document.getElementById('ihf-modal-fix')) {
-      const s = document.createElement('style');
-      s.id = 'ihf-modal-fix';
-      s.textContent = "div.ihf-overlay-container { position: fixed !important; top: 0 !important; left: 0 !important; }"
-        + ".ui-typography-h3 { text-align: center !important; font-size: 22px !important; }"
-        + ".ui-typography-body1 { text-align: center !important; font-size: 14px !important; }"
-        + ".ui-outlined-input { border: none !important; border-bottom: 1px solid #cccccc !important; border-radius: 0 !important; box-shadow: none !important; padding-left: 4px !important; }"
-        + ".ui-outlined-input-input { font-size: 14px !important; padding: 8px 4px !important; }"
-        + ".ui-outlined-input fieldset { border: none !important; }"
-        + ".ihf-email-field, .ui-form-control { max-width: 320px !important; margin-left: auto !important; margin-right: auto !important; }";
-      document.head.appendChild(s);
-    }
-    setInterval(() => this._ihfFixAllShadowRoots(), 500);
-  };
-  ihfFeaturedRef = (node) => {
-    if (!node || node.dataset.ihfMounted) return;
-    const mount = () => {
-      if (!window.ihfKestrel || !window.ihfKestrel.render) { setTimeout(mount, 150); return; }
-      node.dataset.ihfMounted = '1';
-      node.appendChild(window.ihfKestrel.render());
-      this._ihfStartCaseFix();
-    };
-    mount();
-  };
+  }
+  getCityGroups() {
+    const byName = {};
+    this.getCities().forEach((c) => { byName[c.name] = c; });
+    return this.CITY_GROUPS.map((g) => ({ title: g.title, cities: g.names.map((n) => byName[n]) }));
+  }
   openContactModal = (e) => { if (e) e.preventDefault(); if (window.openKeseckerContactModal) window.openKeseckerContactModal(); };
   togglePhonePopup = () => this.setState(s => ({ isPhoneOpen: !s.isPhoneOpen }));
   onPhoneClose = () => this.setState({ isPhoneOpen: false });
   renderVals() {
     return {
-      ihfFeaturedRef: this.ihfFeaturedRef,
+      mapIframeRef: this.mapIframeRef,
+      topGroups: this.getCityGroups().slice(0, 2),
+      bottomGroup: this.getCityGroups()[2],
+      hoverAreaLeave: this.hoverAreaLeave,
       openContactModal: this.openContactModal,
       isPhoneOpen: this.state.isPhoneOpen, togglePhonePopup: this.togglePhonePopup, onPhoneClose: this.onPhoneClose,
       phonePopoverStyle: this.state.isPhoneOpen ? 'opacity:1;visibility:visible;transform:translateY(0);transition:opacity 0.3s ease,transform 0.3s ease;' : 'opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity 0.3s ease,transform 0.3s ease;',
     };
   }
 }
-
 </script>
 </body>
 </html>

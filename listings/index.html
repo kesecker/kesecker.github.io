@@ -57,11 +57,9 @@
     <div style="display: flex; align-items: center; gap: clamp(14px, 2.4vw, 26px); flex: 1; padding-left: clamp(8px, 2vw, 28px);">
       <span style="font-size: 14px; font-weight: 500; color: #ffffff;">Search</span>
       <span style="font-size: 30px; line-height: 1; display: flex; align-items: center; color: #ffffff;">•</span>
-      <a href="../#idx" style="font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75);" style-hover="color: #ffffff;">Notable Sales</a>
+      <a href="../communities" style="font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75);" style-hover="color: #ffffff;">Communities</a>
       <span style="font-size: 30px; line-height: 1; display: flex; align-items: center; color: #ffffff;">•</span>
-      <a href="../#neighborhoods" style="font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75);" style-hover="color: #ffffff;">Areas</a>
-      <span style="font-size: 30px; line-height: 1; display: flex; align-items: center; color: #ffffff;">•</span>
-      <a href="../#about" style="font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75);" style-hover="color: #ffffff;">About</a>
+      <a href="../about" style="font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.75);" style-hover="color: #ffffff;">About</a>
     </div>
 <a href="#" onClick="{{ openContactModal }}" style="font-size: 13px; font-weight: 600; color: #ffffff; flex-shrink: 0;">Contact</a>
     <dc-import name="ContactModal" hint-size="0,0"></dc-import>
@@ -133,7 +131,11 @@ class Component extends DCLogic {
         + ".ui-outlined-input { border: none !important; border-bottom: 1px solid #cccccc !important; border-radius: 0 !important; box-shadow: none !important; padding-left: 4px !important; }"
         + ".ui-outlined-input-input { font-size: 14px !important; padding: 8px 4px !important; }"
         + ".ui-outlined-input fieldset { border: none !important; }"
-        + ".ihf-email-field, .ui-form-control { max-width: 320px !important; margin-left: auto !important; margin-right: auto !important; }";
+        + ".ihf-email-field, .ui-form-control { max-width: 320px !important; margin-left: auto !important; margin-right: auto !important; }"
+        + "[role=\"menu\"], .MuiPaper-root.MuiPaper-elevation1.MuiPaper-rounded { border-radius: 10px !important; border: 1px solid #ececec !important; box-shadow: 0 8px 24px rgba(0,0,0,0.10) !important; }"
+        + ".MuiMenuItem-root:hover { background: #f5f5f5 !important; } .MuiMenuItem-root.Mui-selected { background: #f0f0f0 !important; }"
+        + ".MuiButton-containedPrimary { background-color: #000000 !important; border-radius: 8px !important; box-shadow: none !important; } .MuiButton-containedPrimary:hover { background-color: #1a1a1a !important; }"
+        + ".MuiSlider-root { color: #000000 !important; } .MuiSlider-thumb { border: 2px solid #ffffff !important; box-shadow: 0 1px 4px rgba(0,0,0,0.35) !important; } .MuiSlider-rail { opacity: 0.25 !important; } .MuiSlider-valueLabel { background: #000000 !important; }";
       root.appendChild(style);
     }
     root.querySelectorAll('*').forEach((el) => { if (el.shadowRoot) this._ihfFixTextInRoot(el.shadowRoot); });
