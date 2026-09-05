@@ -105,7 +105,7 @@ class Component extends DCLogic {
       const text = node.nodeValue;
       if (!text || !/[A-Za-z]/.test(text)) continue;
       if (text.includes('Sold Price:')) { node.nodeValue = text.replace('Sold Price:', '').trim(); continue; }
-      const filterCountMatch = text.match(/^(Status|Price|Beds|Baths|Property Type|More)\s*\(\d+\)$/);
+      const filterCountMatch = text.match(/^(Price|Beds|Baths|More)\s*\(\d+\)$/);
       if (filterCountMatch) { node.nodeValue = filterCountMatch[1]; continue; }
       const trimmed = text.trim();
       const cz = trimmed.match(cityStateZipRe);
@@ -132,8 +132,14 @@ class Component extends DCLogic {
         + ".ui-outlined-input-input { font-size: 14px !important; padding: 8px 4px !important; }"
         + ".ui-outlined-input fieldset { border: none !important; }"
         + ".ihf-email-field, .ui-form-control { max-width: 320px !important; margin-left: auto !important; margin-right: auto !important; }"
-        + "[role=\"menu\"], .MuiPaper-root { border-radius: 10px !important; box-shadow: 0 8px 24px rgba(0,0,0,0.10) !important; overflow: hidden !important; padding: 20px !important; box-sizing: border-box !important; }"
-        + ".MuiMenuItem-root:hover { background: #f5f5f5 !important; } .MuiMenuItem-root.Mui-selected { background: #f0f0f0 !important; }"
+        + "[role=\"menu\"], .MuiPaper-root { border: none !important; border-radius: 10px !important; box-shadow: 0 8px 24px rgba(0,0,0,0.10) !important; overflow: hidden !important; padding: 20px 20px 28px 20px !important; box-sizing: border-box !important; }"
+        + ".MuiCardContent-root:last-child { padding-bottom: 20px !important; }"
+        + ".MuiMenuItem-root, [role=\"menu\"] li[role=\"menuitem\"] { position: relative !important; border-bottom: none !important; box-shadow: none !important; } .MuiMenuItem-root:hover, .MuiMenuItem-root.Mui-selected, [role=\"menu\"] li[role=\"menuitem\"]:hover { background: transparent !important; }"
+        + ".MuiMenuItem-root::after, [role=\"menu\"] li[role=\"menuitem\"]::after { content: \"\"; position: absolute; left: 20px; bottom: 6px; height: 2px; width: 0; background: #000000; transition: width 0.3s ease; }"
+        + ".MuiMenuItem-root:hover::after, [role=\"menu\"] li[role=\"menuitem\"]:hover::after { width: calc(100% - 40px) !important; }"
+        + ".MuiToggleButton-root, [role=\"group\"] button, .MuiButtonGroup-grouped { background: transparent !important; background-color: transparent !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; color: #000000 !important; position: relative !important; }"
+        + ".MuiToggleButton-root::after, [role=\"group\"] button::after, .MuiButtonGroup-grouped::after { content: \"\"; position: absolute; left: 12px; right: 12px; bottom: 4px; height: 2px; background: #000000; transform: scaleX(0); transition: transform 0.3s ease; }"
+        + ".MuiToggleButton-root:hover::after, [role=\"group\"] button:hover::after, .MuiButtonGroup-grouped:hover::after, .MuiToggleButton-root.Mui-selected::after, [role=\"group\"] button.Mui-selected::after, .MuiButtonGroup-grouped.Mui-selected::after { transform: scaleX(1); }"
         + ".MuiButton-containedPrimary { background-color: #000000 !important; border-radius: 8px !important; box-shadow: none !important; } .MuiButton-containedPrimary:hover { background-color: #1a1a1a !important; }"
         + ".MuiSlider-root { color: #000000 !important; } .MuiSlider-thumb { border: 2px solid #ffffff !important; box-shadow: 0 1px 4px rgba(0,0,0,0.35) !important; } .MuiSlider-rail { opacity: 0.25 !important; } .MuiSlider-valueLabel { background: #000000 !important; }"
         + ".MuiOutlinedInput-root { border: none !important; border-bottom: 1px solid #cccccc !important; border-radius: 0 !important; box-shadow: none !important; } .MuiOutlinedInput-notchedOutline { border: none !important; } .MuiOutlinedInput-input, .MuiSelect-root { padding-left: 4px !important; }"
