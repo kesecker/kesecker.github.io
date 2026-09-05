@@ -132,13 +132,41 @@ class Component extends DCLogic {
         + ".ui-outlined-input-input { font-size: 14px !important; padding: 8px 4px !important; }"
         + ".ui-outlined-input fieldset { border: none !important; }"
         + ".ihf-email-field, .ui-form-control { max-width: 320px !important; margin-left: auto !important; margin-right: auto !important; }"
-        + "[role=\"menu\"], .MuiPaper-root { border-radius: 10px !important; box-shadow: 0 8px 24px rgba(0,0,0,0.10) !important; overflow: hidden !important; }"
+        + "[role=\"menu\"], .MuiPaper-root { border-radius: 10px !important; box-shadow: 0 8px 24px rgba(0,0,0,0.10) !important; overflow: hidden !important; padding: 20px !important; box-sizing: border-box !important; }"
         + ".MuiMenuItem-root:hover { background: #f5f5f5 !important; } .MuiMenuItem-root.Mui-selected { background: #f0f0f0 !important; }"
         + ".MuiButton-containedPrimary { background-color: #000000 !important; border-radius: 8px !important; box-shadow: none !important; } .MuiButton-containedPrimary:hover { background-color: #1a1a1a !important; }"
-        + ".MuiSlider-root { color: #000000 !important; } .MuiSlider-thumb { border: 2px solid #ffffff !important; box-shadow: 0 1px 4px rgba(0,0,0,0.35) !important; } .MuiSlider-rail { opacity: 0.25 !important; } .MuiSlider-valueLabel { background: #000000 !important; }";
+        + ".MuiSlider-root { color: #000000 !important; } .MuiSlider-thumb { border: 2px solid #ffffff !important; box-shadow: 0 1px 4px rgba(0,0,0,0.35) !important; } .MuiSlider-rail { opacity: 0.25 !important; } .MuiSlider-valueLabel { background: #000000 !important; }"
+        + ".MuiOutlinedInput-root { border: none !important; border-bottom: 1px solid #cccccc !important; border-radius: 0 !important; box-shadow: none !important; } .MuiOutlinedInput-notchedOutline { border: none !important; } .MuiOutlinedInput-input, .MuiSelect-root { padding-left: 4px !important; }"
+        + ".heart-trace-clone path { transition: stroke-dashoffset 0.6s ease; } .ihf-listing-result-badge-fav:hover .heart-trace-clone path, .ihf-listing-result-badge-fav svg[fill=\"currentColor\"] ~ .heart-trace-clone path { stroke-dashoffset: 0 !important; }";
       root.appendChild(style);
     }
+    this._ihfTraceHearts(root);
     root.querySelectorAll('*').forEach((el) => { if (el.shadowRoot) this._ihfFixTextInRoot(el.shadowRoot); });
+  };
+  _ihfTraceHearts = (root) => {
+    root.querySelectorAll('.ihf-listing-result-badge-fav').forEach((btn) => {
+      if (btn.dataset.heartTraced) return;
+      const svg = btn.querySelector('svg');
+      if (!svg || !svg.querySelector('path')) return;
+      btn.dataset.heartTraced = '1';
+      if (getComputedStyle(btn).position === 'static') btn.style.position = 'relative';
+      const clone = svg.cloneNode(true);
+      clone.classList.add('heart-trace-clone');
+      clone.style.position = 'absolute';
+      clone.style.inset = '0';
+      clone.style.pointerEvents = 'none';
+      clone.style.overflow = 'visible';
+      clone.querySelectorAll('path').forEach((p) => {
+        let len = 40;
+        try { len = p.getTotalLength(); } catch (e) {}
+        p.style.fill = 'none';
+        p.style.stroke = '#e53935';
+        p.style.strokeWidth = '2';
+        p.style.strokeDasharray = String(len);
+        p.style.strokeDashoffset = String(len);
+      });
+      svg.insertAdjacentElement('afterend', clone);
+    });
   };
   _ihfFixAllShadowRoots = () => {
     document.querySelectorAll('*').forEach((el) => {
